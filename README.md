@@ -7,10 +7,12 @@ This is a Movie Ticket Booking App built by `Diego Tech` by using:
 
 ## 🚀 I used the Libraries
 
+- React Native Vector Icons
+
 ### One Message for EveryOne 🔥
 
-```bash
-   > [!TIP]
-   > Aguante Argentina!!!
-   > Aguante Messi!!!
-```
+> [!TIP]
+> ```bash
+> Aguante Argentina!!!
+> Aguante Messi!!!
+> ```
