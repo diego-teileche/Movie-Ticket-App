@@ -11,6 +11,7 @@ import React, {useEffect, useState} from 'react';
 import {COLORS, SPACING} from '../theme/theme';
 import InputHeader from '../components/InputHeader';
 import {nowPlayingMovies, popularMovies, upcomingMovies} from '../api/apicalls';
+import CategoryHeader from '../components/CategoryHeader';
 
 const {width, height} = Dimensions.get('window');
 
@@ -115,6 +116,10 @@ const HomeScreen = ({navigation}: any) => {
       <View style={styles.inputHeaderContainer}>
         <InputHeader searchFunction={searchMoviesFunction} />
       </View>
+
+      <CategoryHeader title="Now Playing" />
+      <CategoryHeader title="Popular" />
+      <CategoryHeader title="Upcoming" />
     </ScrollView>
   );
 };
