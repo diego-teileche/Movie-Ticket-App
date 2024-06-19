@@ -15,7 +15,7 @@ import {
 } from '../theme/theme';
 import CustomIcon from './CustomIcon';
 
-const InputHeader = () => {
+const InputHeader = (props: any) => {
   const [searchText, setSearchText] = useState<string>('');
 
   return (
@@ -23,10 +23,13 @@ const InputHeader = () => {
       <TextInput
         style={styles.textInput}
         onChangeText={textInput => setSearchText(textInput)}
+        value={searchText}
         placeholder="Search a Movie..."
         placeholderTextColor={COLORS.WhiteRGBA32}
       />
-      <TouchableOpacity style={styles.searchIcon}>
+      <TouchableOpacity
+        style={styles.searchIcon}
+        onPress={() => props.searchFunction(searchText)}>
         <CustomIcon
           name="search"
           color={COLORS.Orange}
