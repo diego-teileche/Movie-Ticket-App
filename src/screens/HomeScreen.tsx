@@ -1,6 +1,7 @@
 import {
   ActivityIndicator,
   Dimensions,
+  FlatList,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -10,8 +11,14 @@ import {
 import React, {useEffect, useState} from 'react';
 import {COLORS, SPACING} from '../theme/theme';
 import InputHeader from '../components/InputHeader';
-import {nowPlayingMovies, popularMovies, upcomingMovies} from '../api/apicalls';
+import {
+  baseImagePath,
+  nowPlayingMovies,
+  popularMovies,
+  upcomingMovies,
+} from '../api/apicalls';
 import CategoryHeader from '../components/CategoryHeader';
+import SubMovieCard from '../components/SubMovieCard';
 
 const {width, height} = Dimensions.get('window');
 
@@ -66,13 +73,13 @@ const HomeScreen = ({navigation}: any) => {
   useEffect(() => {
     (async () => {
       let tempNowPlaying = await getNowPlayingMoviesList();
-      setNowPlayingMoviesList({...tempNowPlaying});
-
-      let tempUpcoming = await getUpcomingMoviesList();
-      setUpcomingMoviesList({...tempUpcoming});
+      setNowPlayingMoviesList(tempNowPlaying.results);
 
       let tempPopular = await getPopularMoviesList();
-      setPopularMoviesList({...tempPopular});
+      setPopularMoviesList(tempPopular.results);
+
+      let tempUpcoming = await getUpcomingMoviesList();
+      setUpcomingMoviesList(tempUpcoming.results);
     })();
   }, []);
 
@@ -107,10 +114,7 @@ const HomeScreen = ({navigation}: any) => {
   }
 
   return (
-    <ScrollView
-      style={styles.container}
-      bounces={false}
-      contentContainerStyle={styles.scrollViewContainer}>
+    <ScrollView style={styles.container} bounces={false}>
       <StatusBar hidden />
 
       <View style={styles.inputHeaderContainer}>
@@ -118,8 +122,70 @@ const HomeScreen = ({navigation}: any) => {
       </View>
 
       <CategoryHeader title="Now Playing" />
+
+      <FlatList
+        data={nowPlayingMoviesList}
+        keyExtractor={(item: any) => item.id}
+        horizontal
+        contentContainerStyle={styles.containerGap36}
+        renderItem={({item, index}) => (
+          <SubMovieCard
+            shouldMarginatedAtEnd={true}
+            cardFunction={() =>
+              navigation.push('MovieDetails', {movieid: item.id})
+            }
+            cardWidth={width / 3}
+            isFirst={index == 0 ? true : false}
+            isLast={index == nowPlayingMoviesList?.length - 1 ? true : false}
+            title={item.original_title}
+            imagePath={baseImagePath('w342', item.poster_path)}
+          />
+        )}
+      />
+
       <CategoryHeader title="Popular" />
+
+      <FlatList
+        data={popularMoviesList}
+        keyExtractor={(item: any) => item.id}
+        horizontal
+        contentContainerStyle={styles.containerGap36}
+        renderItem={({item, index}) => (
+          <SubMovieCard
+            shouldMarginatedAtEnd={true}
+            cardFunction={() =>
+              navigation.push('MovieDetails', {movieid: item.id})
+            }
+            cardWidth={width / 3}
+            isFirst={index == 0 ? true : false}
+            isLast={index == popularMoviesList?.length - 1 ? true : false}
+            title={item.original_title}
+            imagePath={baseImagePath('w342', item.poster_path)}
+          />
+        )}
+      />
+
       <CategoryHeader title="Upcoming" />
+
+      <FlatList
+        data={upcomingMoviesList}
+        keyExtractor={(item: any) => item.id}
+        horizontal
+        contentContainerStyle={styles.containerGap36}
+        renderItem={({item, index}) => (
+          <SubMovieCard
+            shouldMarginatedAtEnd={true}
+            cardFunction={() =>
+              navigation.push('MovieDetails', {movieid: item.id})
+            }
+            cardWidth={width / 3}
+            isFirst={index == 0 ? true : false}
+            isLast={index == upcomingMoviesList?.length - 1 ? true : false}
+            title={item.original_title}
+            imagePath={baseImagePath('w342', item.poster_path)}
+          />
+        )}
+      />
     </ScrollView>
   );
 };
@@ -140,6 +206,9 @@ const styles = StyleSheet.create({
   inputHeaderContainer: {
     marginHorizontal: SPACING.space_36,
     marginTop: SPACING.space_28,
+  },
+  containerGap36: {
+    gap: SPACING.space_36,
   },
 });
 
