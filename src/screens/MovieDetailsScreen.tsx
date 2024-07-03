@@ -1,14 +1,17 @@
 import {
   ActivityIndicator,
+  ImageBackground,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {movieCastDetails, movieDetails} from '../api/apicalls';
+import {baseImagePath, movieCastDetails, movieDetails} from '../api/apicalls';
 import {COLORS, SPACING} from '../theme/theme';
 import AppHeader from '../components/AppHeader';
+import LinearGradient from 'react-native-linear-gradient';
 
 const getMovieDetails = async (movieid: number) => {
   try {
@@ -47,7 +50,7 @@ const MovieDetailsScreen = ({navigation, route}: any) => {
 
     (async () => {
       const tempMovieCastData = await getMovieCastDetails(route.params.movieid);
-      setMovieData(tempMovieCastData);
+      setMovieCastData(tempMovieCastData);
     })();
   }, []);
 
@@ -82,8 +85,26 @@ const MovieDetailsScreen = ({navigation, route}: any) => {
       style={styles.container}
       bounces={false}
       showsVerticalScrollIndicator={false}>
-      <View style={styles.appHeaderContainer}>
-        <AppHeader name="close" action={() => navigation.goBack()} />
+      <StatusBar hidden />
+
+      <View>
+        <ImageBackground
+          source={{
+            uri: baseImagePath('w780', movieData?.backdrop_path),
+          }}
+          style={styles.imageBG}>
+          <LinearGradient
+            colors={[COLORS.BlackRGB10, COLORS.Black]}
+            style={styles.linearGradient}>
+            <View style={styles.appHeaderContainer}>
+              <AppHeader
+                name="close"
+                header="Movie Details"
+                action={() => navigation.goBack()}
+              />
+            </View>
+          </LinearGradient>
+        </ImageBackground>
       </View>
     </ScrollView>
   );
@@ -106,6 +127,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
     justifyContent: 'center',
+  },
+  imageBG: {
+    width: '100%',
+    aspectRatio: 3072 / 1727,
+  },
+  linearGradient: {
+    height: '100%',
   },
 });
 
