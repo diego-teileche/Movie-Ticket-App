@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Image,
   ImageBackground,
   ScrollView,
   StatusBar,
@@ -105,6 +106,13 @@ const MovieDetailsScreen = ({navigation, route}: any) => {
             </View>
           </LinearGradient>
         </ImageBackground>
+
+        <View style={styles.imageBG}>
+          <Image
+            source={{uri: baseImagePath('w342', movieData?.poster_path)}}
+            style={styles.cardImage}
+          />
+        </View>
       </View>
     </ScrollView>
   );
@@ -134,6 +142,13 @@ const styles = StyleSheet.create({
   },
   linearGradient: {
     height: '100%',
+  },
+  cardImage: {
+    width: '60%',
+    aspectRatio: 200 / 300,
+    position: 'absolute',
+    bottom: 0,
+    alignSelf: 'center',
   },
 });
 
