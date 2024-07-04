@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  FlatList,
   Image,
   ImageBackground,
   ScrollView,
@@ -20,6 +21,8 @@ import {
 import AppHeader from '../components/AppHeader';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomIcon from '../components/CustomIcon';
+import CategoryHeader from '../components/CategoryHeader';
+import CastCard from '../components/CastCard';
 
 const getMovieDetails = async (movieid: number) => {
   try {
@@ -58,7 +61,7 @@ const MovieDetailsScreen = ({navigation, route}: any) => {
 
     (async () => {
       const tempMovieCastData = await getMovieCastDetails(route.params.movieid);
-      setMovieCastData(tempMovieCastData);
+      setMovieCastData(tempMovieCastData.cast);
     })();
   }, []);
 
@@ -164,6 +167,28 @@ const MovieDetailsScreen = ({navigation, route}: any) => {
         </View>
 
         <Text style={styles.descriptionText}>{movieData?.overview}</Text>
+      </View>
+
+      <View>
+        <CategoryHeader title="Top Cast" />
+
+        <FlatList
+          data={movieCastData}
+          keyExtractor={(item: any) => item.id}
+          horizontal
+          contentContainerStyle={styles.containerGap24}
+          renderItem={({item, index}) => (
+            <CastCard
+              shouldMarginatedAtEnd={true}
+              cardWidth={80}
+              isFirst={index == 0 ? true : false}
+              isLast={index == movieCastData?.length - 1 ? true : false}
+              imagePath={baseImagePath('w185', item.profile_path)}
+              title={item.original_name}
+              subtitle={item.character}
+            />
+          )}
+        />
       </View>
     </ScrollView>
   );
@@ -273,6 +298,9 @@ const styles = StyleSheet.create({
     fontSize: FONTSIZE.size_14,
     color: COLORS.White,
     paddingTop: SPACING.space_12,
+  },
+  containerGap24: {
+    gap: SPACING.space_24,
   },
 });
 
