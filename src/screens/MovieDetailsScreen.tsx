@@ -10,7 +10,13 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {baseImagePath, movieCastDetails, movieDetails} from '../api/apicalls';
-import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
+import {
+  BORDERRADIUS,
+  COLORS,
+  FONTFAMILY,
+  FONTSIZE,
+  SPACING,
+} from '../theme/theme';
 import AppHeader from '../components/AppHeader';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomIcon from '../components/CustomIcon';
@@ -123,6 +129,10 @@ const MovieDetailsScreen = ({navigation, route}: any) => {
           {Math.floor(movieData?.runtime % 60)}m
         </Text>
       </View>
+
+      <View>
+        <Text style={styles.title}>{movieData?.original_title}</Text>
+      </View>
     </ScrollView>
   );
 };
@@ -158,6 +168,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     alignSelf: 'center',
+    borderRadius: BORDERRADIUS.radius_10,
   },
   timeContainer: {
     display: 'flex',
@@ -175,6 +186,15 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.poppins_medium,
     fontSize: FONTSIZE.size_14,
     color: COLORS.White,
+    lineHeight: FONTSIZE.size_20,
+  },
+  title: {
+    fontFamily: FONTFAMILY.poppins_regular,
+    fontSize: FONTSIZE.size_24,
+    color: COLORS.White,
+    marginHorizontal: SPACING.space_36,
+    marginVertical: SPACING.space_15,
+    textAlign: 'center',
   },
 });
 
