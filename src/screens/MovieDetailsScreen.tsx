@@ -132,6 +132,18 @@ const MovieDetailsScreen = ({navigation, route}: any) => {
 
       <View>
         <Text style={styles.title}>{movieData?.original_title}</Text>
+
+        <View style={styles.genreContainer}>
+          {movieData?.genres.map((item: any) => {
+            return (
+              <View key={item.id} style={styles.genreBox}>
+                <Text style={styles.genreText}>{item.name}</Text>
+              </View>
+            );
+          })}
+        </View>
+
+        <Text style={styles.tagline}>{movieData?.tagline}</Text>
       </View>
     </ScrollView>
   );
@@ -192,6 +204,34 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.poppins_regular,
     fontSize: FONTSIZE.size_24,
     color: COLORS.White,
+    marginHorizontal: SPACING.space_36,
+    marginVertical: SPACING.space_15,
+    textAlign: 'center',
+  },
+  genreContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    gap: SPACING.space_20,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  genreBox: {
+    borderColor: COLORS.WhiteRGBA50,
+    borderWidth: 1,
+    paddingHorizontal: SPACING.space_10,
+    paddingVertical: SPACING.space_4,
+    borderRadius: BORDERRADIUS.radius_25,
+  },
+  genreText: {
+    fontFamily: FONTFAMILY.poppins_regular,
+    fontSize: FONTSIZE.size_10,
+    color: COLORS.WhiteRGBA75,
+  },
+  tagline: {
+    fontFamily: FONTFAMILY.poppins_thin,
+    fontSize: FONTSIZE.size_14,
+    color: COLORS.White,
+    fontStyle: 'italic',
     marginHorizontal: SPACING.space_36,
     marginVertical: SPACING.space_15,
     textAlign: 'center',
