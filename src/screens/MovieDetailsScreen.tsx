@@ -10,9 +10,10 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {baseImagePath, movieCastDetails, movieDetails} from '../api/apicalls';
-import {COLORS, SPACING} from '../theme/theme';
+import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
 import AppHeader from '../components/AppHeader';
 import LinearGradient from 'react-native-linear-gradient';
+import CustomIcon from '../components/CustomIcon';
 
 const getMovieDetails = async (movieid: number) => {
   try {
@@ -107,12 +108,20 @@ const MovieDetailsScreen = ({navigation, route}: any) => {
           </LinearGradient>
         </ImageBackground>
 
-        <View style={styles.imageBG}>
-          <Image
-            source={{uri: baseImagePath('w342', movieData?.poster_path)}}
-            style={styles.cardImage}
-          />
-        </View>
+        <View style={styles.imageBG}></View>
+        <Image
+          source={{uri: baseImagePath('w342', movieData?.poster_path)}}
+          style={styles.cardImage}
+        />
+      </View>
+
+      <View style={styles.timeContainer}>
+        <CustomIcon name="clock" style={styles.clockIcon} />
+
+        <Text style={styles.runtimeText}>
+          {Math.floor(movieData?.runtime / 60)}h{' '}
+          {Math.floor(movieData?.runtime % 60)}m
+        </Text>
       </View>
     </ScrollView>
   );
@@ -149,6 +158,23 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     alignSelf: 'center',
+  },
+  timeContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: SPACING.space_15,
+  },
+  clockIcon: {
+    fontSize: FONTSIZE.size_20,
+    color: COLORS.WhiteRGBA50,
+    marginRight: SPACING.space_8,
+  },
+  runtimeText: {
+    fontFamily: FONTFAMILY.poppins_medium,
+    fontSize: FONTSIZE.size_14,
+    color: COLORS.White,
   },
 });
 
