@@ -145,6 +145,26 @@ const MovieDetailsScreen = ({navigation, route}: any) => {
 
         <Text style={styles.tagline}>{movieData?.tagline}</Text>
       </View>
+
+      <View style={styles.infoContainer}>
+        <View style={styles.rateContainer}>
+          <CustomIcon name="star" style={styles.starIcon} />
+
+          <Text style={styles.runtimeText}>
+            {movieData?.vote_average.toFixed(1)} ({movieData?.vote_count})
+          </Text>
+
+          <Text style={styles.runtimeText}>
+            {movieData?.release_date.substring(8, 10)}{' '}
+            {new Date(movieData?.release_date).toLocaleString('default', {
+              month: 'long',
+            })}{' '}
+            {movieData?.release_date.substring(0, 4)}
+          </Text>
+        </View>
+
+        <Text style={styles.descriptionText}>{movieData?.overview}</Text>
+      </View>
     </ScrollView>
   );
 };
@@ -230,11 +250,29 @@ const styles = StyleSheet.create({
   tagline: {
     fontFamily: FONTFAMILY.poppins_thin,
     fontSize: FONTSIZE.size_14,
-    color: COLORS.White,
+    color: COLORS.WhiteRGBA75,
     fontStyle: 'italic',
     marginHorizontal: SPACING.space_36,
     marginVertical: SPACING.space_15,
     textAlign: 'center',
+  },
+  infoContainer: {
+    marginHorizontal: SPACING.space_24,
+  },
+  rateContainer: {
+    flexDirection: 'row',
+    gap: SPACING.space_10,
+    alignItems: 'center',
+  },
+  starIcon: {
+    fontSize: FONTSIZE.size_20,
+    color: COLORS.Yellow,
+  },
+  descriptionText: {
+    fontFamily: FONTFAMILY.poppins_light,
+    fontSize: FONTSIZE.size_14,
+    color: COLORS.White,
+    paddingTop: SPACING.space_12,
   },
 });
 
