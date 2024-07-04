@@ -7,6 +7,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
@@ -189,6 +190,19 @@ const MovieDetailsScreen = ({navigation, route}: any) => {
             />
           )}
         />
+
+        <View>
+          <TouchableOpacity
+            style={styles.buttonBG}
+            onPress={() => {
+              navigation.push('SeatBooking', {
+                bgImage: baseImagePath('w780', movieData.backdrop_path),
+                PosterImage: baseImagePath('original', movieData.poster_path),
+              });
+            }}>
+            <Text style={styles.buttonText}>Select Seats</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );
@@ -301,6 +315,19 @@ const styles = StyleSheet.create({
   },
   containerGap24: {
     gap: SPACING.space_24,
+  },
+  buttonBG: {
+    alignItems: 'center',
+    marginVertical: SPACING.space_24,
+  },
+  buttonText: {
+    borderRadius: BORDERRADIUS.radius_25 * 2,
+    paddingHorizontal: SPACING.space_24,
+    paddingVertical: SPACING.space_10,
+    backgroundColor: COLORS.Orange,
+    fontFamily: FONTFAMILY.poppins_medium,
+    fontSize: FONTSIZE.size_14,
+    color: COLORS.White,
   },
 });
 
