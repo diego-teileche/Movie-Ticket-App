@@ -1,6 +1,15 @@
-import {ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {
+  ImageBackground,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
-import {COLORS} from '../theme/theme';
+import {COLORS, SPACING} from '../theme/theme';
+import LinearGradient from 'react-native-linear-gradient';
+import AppHeader from '../components/AppHeader';
 
 interface DateProps {
   date: number;
@@ -75,7 +84,7 @@ const generateSeats = (): SeatProps[][] => {
   return rowArray;
 };
 
-const SeatBookingScreen = () => {
+const SeatBookingScreen = ({navigation, route}: any) => {
   const [dateArray, setDateArray] = useState<DateProps[]>(generateDate());
   const [selectedDateIndex, setSelectedDateIndex] = useState<any>();
   const [price, setPrice] = useState<number>(0);
@@ -86,8 +95,25 @@ const SeatBookingScreen = () => {
   const [selectedTimeIndex, setSelectedTimeIndex] = useState<any>();
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      bounces={false}
+      showsVerticalScrollIndicator={false}>
       <StatusBar hidden />
+
+      <View>
+        <ImageBackground
+          source={{uri: route.params?.bgImage}}
+          style={styles.imageBG}>
+          <LinearGradient
+            colors={[COLORS.BlackRGB10, COLORS.Black]}
+            style={styles.linearGradient}>
+            <View style={styles.appHeaderContainer}>
+              <AppHeader name="close" action={() => navigation.goBack()} />
+            </View>
+          </LinearGradient>
+        </ImageBackground>
+      </View>
     </ScrollView>
   );
 };
@@ -97,6 +123,17 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     backgroundColor: COLORS.Black,
+  },
+  imageBG: {
+    width: '100%',
+    aspectRatio: 3072 / 1727,
+  },
+  linearGradient: {
+    height: '100%',
+  },
+  appHeaderContainer: {
+    marginHorizontal: SPACING.space_36,
+    marginTop: SPACING.space_20 * 2,
   },
 });
 
