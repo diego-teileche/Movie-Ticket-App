@@ -11,6 +11,7 @@ This is a Movie Ticket Booking App built by `Diego Tech` by using:
 - React Native Vector Icons
 - React Native Linear Gradient
 - React Native DotEnv
+- React Native Encrypted Storage
 
 ### One Message for EveryOne 🔥
 
