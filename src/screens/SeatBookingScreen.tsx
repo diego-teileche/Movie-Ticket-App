@@ -5,6 +5,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -19,6 +20,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import AppHeader from '../components/AppHeader';
 import CustomIcon from '../components/CustomIcon';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 interface DateProps {
   date: number;
@@ -124,6 +126,41 @@ const SeatBookingScreen = ({navigation, route}: any) => {
 
       setPrice(array.length * 5.0);
       setTwoDSeatArray(temp);
+    }
+  };
+
+  const bookSeats = async () => {
+    if (
+      selectedSeatArray.length !== 0 &&
+      timeArray[selectedTimeIndex] !== undefined &&
+      dateArray[selectedDateIndex] !== undefined
+    ) {
+      try {
+        await EncryptedStorage.setItem(
+          'ticket',
+          JSON.stringify({
+            seatArray: selectedSeatArray,
+            time: timeArray[selectedTimeIndex],
+            date: dateArray[selectedDateIndex],
+            ticketImage: route.params.PosterImage,
+          }),
+        );
+      } catch (error) {
+        console.log('Something went wrong in bookSeats function: ', error);
+      }
+
+      navigation.navigate('Ticket', {
+        seatArray: selectedSeatArray,
+        time: timeArray[selectedTimeIndex],
+        date: dateArray[selectedDateIndex],
+        ticketImage: route.params.PosterImage,
+      });
+    } else {
+      ToastAndroid.showWithGravity(
+        'Please Select Seats, Date and Time of the Show',
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+      );
     }
   };
 
@@ -262,6 +299,17 @@ const SeatBookingScreen = ({navigation, route}: any) => {
           }}
         />
       </View>
+
+      <View style={styles.buttonPriceContainer}>
+        <View style={styles.priceContainer}>
+          <Text style={styles.totalPriceText}>Total Price</Text>
+          <Text style={styles.price}>$ {price}.00</Text>
+        </View>
+
+        <TouchableOpacity onPress={bookSeats}>
+          <Text style={styles.buttonText}>Buy Tickets</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
@@ -363,6 +411,35 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.poppins_regular,
     fontSize: FONTSIZE.size_14,
     color: COLORS.White,
+  },
+  buttonPriceContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: SPACING.space_24,
+    paddingBottom: SPACING.space_24,
+  },
+  priceContainer: {
+    alignItems: 'center',
+  },
+  totalPriceText: {
+    fontFamily: FONTFAMILY.poppins_regular,
+    fontSize: FONTSIZE.size_14,
+    color: COLORS.Grey,
+  },
+  price: {
+    fontFamily: FONTFAMILY.poppins_medium,
+    fontSize: FONTSIZE.size_24,
+    color: COLORS.White,
+  },
+  buttonText: {
+    borderRadius: BORDERRADIUS.radius_25,
+    paddingHorizontal: SPACING.space_24,
+    paddingVertical: SPACING.space_10,
+    fontFamily: FONTFAMILY.poppins_semibold,
+    fontSize: FONTSIZE.size_16,
+    color: COLORS.White,
+    backgroundColor: COLORS.Orange,
   },
 });
 
