@@ -170,6 +170,29 @@ const SeatBookingScreen = ({navigation, route}: any) => {
             );
           })}
         </View>
+
+        <View style={styles.seatRadioContainer}>
+          <View style={styles.radioContainer}>
+            <CustomIcon name="radio" style={styles.radioIcon} />
+            <Text style={styles.radioText}>Available</Text>
+          </View>
+
+          <View style={styles.radioContainer}>
+            <CustomIcon
+              name="radio"
+              style={[styles.radioIcon, {color: COLORS.Grey}]}
+            />
+            <Text style={styles.radioText}>Taken</Text>
+          </View>
+
+          <View style={styles.radioContainer}>
+            <CustomIcon
+              name="radio"
+              style={[styles.radioIcon, {color: COLORS.Orange}]}
+            />
+            <Text style={styles.radioText}>Selected</Text>
+          </View>
+        </View>
       </View>
     </ScrollView>
   );
@@ -211,6 +234,26 @@ const styles = StyleSheet.create({
   },
   seatIcon: {
     fontSize: FONTSIZE.size_24,
+    color: COLORS.White,
+  },
+  seatRadioContainer: {
+    flexDirection: 'row',
+    marginVertical: SPACING.space_36,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+  },
+  radioContainer: {
+    flexDirection: 'row',
+    gap: SPACING.space_10,
+    alignItems: 'center',
+  },
+  radioIcon: {
+    fontSize: FONTSIZE.size_20,
+    color: COLORS.White,
+  },
+  radioText: {
+    fontFamily: FONTFAMILY.poppins_medium,
+    fontSize: FONTSIZE.size_12,
     color: COLORS.White,
   },
 });
