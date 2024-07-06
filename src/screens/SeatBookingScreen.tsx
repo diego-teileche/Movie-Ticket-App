@@ -232,6 +232,36 @@ const SeatBookingScreen = ({navigation, route}: any) => {
           }}
         />
       </View>
+
+      <View style={styles.outterContainer}>
+        <FlatList
+          data={timeArray}
+          keyExtractor={item => item}
+          horizontal
+          bounces={false}
+          contentContainerStyle={styles.containerGap24}
+          renderItem={({item, index}) => {
+            return (
+              <TouchableOpacity onPress={() => setSelectedTimeIndex(index)}>
+                <View
+                  style={[
+                    styles.timeContainer,
+                    index == 0
+                      ? {marginLeft: SPACING.space_24}
+                      : index == timeArray.length - 1
+                      ? {marginRight: SPACING.space_24}
+                      : {},
+                    index == selectedTimeIndex
+                      ? {backgroundColor: COLORS.Orange}
+                      : {},
+                  ]}>
+                  <Text style={styles.timeText}>{item}</Text>
+                </View>
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </View>
     </ScrollView>
   );
 };
@@ -314,6 +344,24 @@ const styles = StyleSheet.create({
   dayText: {
     fontFamily: FONTFAMILY.poppins_regular,
     fontSize: FONTSIZE.size_12,
+    color: COLORS.White,
+  },
+  outterContainer: {
+    marginVertical: SPACING.space_24,
+  },
+  timeContainer: {
+    paddingVertical: SPACING.space_10,
+    paddingHorizontal: SPACING.space_20,
+    borderWidth: 1,
+    borderColor: COLORS.WhiteRGBA50,
+    borderRadius: BORDERRADIUS.radius_25,
+    backgroundColor: COLORS.DarkGrey,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  timeText: {
+    fontFamily: FONTFAMILY.poppins_regular,
+    fontSize: FONTSIZE.size_14,
     color: COLORS.White,
   },
 });
