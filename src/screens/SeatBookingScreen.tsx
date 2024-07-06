@@ -1,4 +1,5 @@
 import {
+  FlatList,
   ImageBackground,
   ScrollView,
   StatusBar,
@@ -8,7 +9,13 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
+import {
+  BORDERRADIUS,
+  COLORS,
+  FONTFAMILY,
+  FONTSIZE,
+  SPACING,
+} from '../theme/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import AppHeader from '../components/AppHeader';
 import CustomIcon from '../components/CustomIcon';
@@ -194,6 +201,37 @@ const SeatBookingScreen = ({navigation, route}: any) => {
           </View>
         </View>
       </View>
+
+      <View>
+        <FlatList
+          data={dateArray}
+          keyExtractor={item => item.date.toString()}
+          horizontal
+          bounces={false}
+          contentContainerStyle={styles.containerGap24}
+          renderItem={({item, index}) => {
+            return (
+              <TouchableOpacity onPress={() => setSelectedDateIndex(index)}>
+                <View
+                  style={[
+                    styles.dateContainer,
+                    index == 0
+                      ? {marginLeft: SPACING.space_24}
+                      : index == dateArray.length - 1
+                      ? {marginRight: SPACING.space_24}
+                      : {},
+                    index == selectedDateIndex
+                      ? {backgroundColor: COLORS.Orange}
+                      : {},
+                  ]}>
+                  <Text style={styles.dateText}>{item.date}</Text>
+                  <Text style={styles.dayText}>{item.day}</Text>
+                </View>
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </View>
     </ScrollView>
   );
 };
@@ -238,7 +276,8 @@ const styles = StyleSheet.create({
   },
   seatRadioContainer: {
     flexDirection: 'row',
-    marginVertical: SPACING.space_36,
+    marginTop: SPACING.space_36,
+    marginBottom: SPACING.space_20,
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
@@ -253,6 +292,27 @@ const styles = StyleSheet.create({
   },
   radioText: {
     fontFamily: FONTFAMILY.poppins_medium,
+    fontSize: FONTSIZE.size_12,
+    color: COLORS.White,
+  },
+  containerGap24: {
+    gap: SPACING.space_24,
+  },
+  dateContainer: {
+    width: SPACING.space_10 * 7,
+    height: SPACING.space_10 * 10,
+    borderRadius: SPACING.space_10 * 10,
+    backgroundColor: COLORS.DarkGrey,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  dateText: {
+    fontFamily: FONTFAMILY.poppins_medium,
+    fontSize: FONTSIZE.size_24,
+    color: COLORS.White,
+  },
+  dayText: {
+    fontFamily: FONTFAMILY.poppins_regular,
     fontSize: FONTSIZE.size_12,
     color: COLORS.White,
   },
