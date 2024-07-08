@@ -1,4 +1,11 @@
-import {Image, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React from 'react';
 import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
 import AppHeader from '../components/AppHeader';
@@ -6,7 +13,7 @@ import SettingComponent from '../components/SettingComponent';
 
 const UserAccountScreen = ({navigation}: any) => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar hidden />
 
       <View style={styles.appHeaderContainer}>
@@ -54,7 +61,7 @@ const UserAccountScreen = ({navigation}: any) => {
           subTitle="more..."
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
