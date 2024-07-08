@@ -104,6 +104,7 @@ const SeatBookingScreen = ({navigation, route}: any) => {
   );
   const [selectedSeatArray, setSelectedSeatArray] = useState<any>([]);
   const [selectedTimeIndex, setSelectedTimeIndex] = useState<any>();
+  const [movieTitle, setMovieTitle] = useState<any>(route.params);
 
   const selectSeat = (index: number, subindex: number, num: number) => {
     if (!twoDSeatArray[index][subindex].taken) {
@@ -179,7 +180,11 @@ const SeatBookingScreen = ({navigation, route}: any) => {
             colors={[COLORS.BlackRGB10, COLORS.Black]}
             style={styles.linearGradient}>
             <View style={styles.appHeaderContainer}>
-              <AppHeader name="close" action={() => navigation.goBack()} />
+              <AppHeader
+                name="close"
+                header={movieTitle?.originalTitle}
+                action={() => navigation.goBack()}
+              />
             </View>
           </LinearGradient>
         </ImageBackground>

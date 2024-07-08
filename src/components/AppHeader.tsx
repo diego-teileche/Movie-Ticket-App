@@ -25,8 +25,6 @@ const AppHeader = (props: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -45,6 +43,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     flex: 1,
+    paddingHorizontal: SPACING.space_15,
     fontFamily: FONTFAMILY.poppins_medium,
     fontSize: FONTSIZE.size_20,
     textAlign: 'center',

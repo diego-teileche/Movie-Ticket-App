@@ -109,11 +109,7 @@ const MovieDetailsScreen = ({navigation, route}: any) => {
             colors={[COLORS.BlackRGB10, COLORS.Black]}
             style={styles.linearGradient}>
             <View style={styles.appHeaderContainer}>
-              <AppHeader
-                name="close"
-                header="Movie Details"
-                action={() => navigation.goBack()}
-              />
+              <AppHeader name="close" action={() => navigation.goBack()} />
             </View>
           </LinearGradient>
         </ImageBackground>
@@ -198,6 +194,7 @@ const MovieDetailsScreen = ({navigation, route}: any) => {
               navigation.push('SeatBooking', {
                 bgImage: baseImagePath('w780', movieData.backdrop_path),
                 PosterImage: baseImagePath('original', movieData.poster_path),
+                originalTitle: movieData.original_title,
               });
             }}>
             <Text style={styles.buttonText}>Select Seats</Text>
@@ -240,13 +237,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignSelf: 'center',
     borderRadius: BORDERRADIUS.radius_10,
+    marginVertical: -23,
   },
   timeContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: SPACING.space_15,
+    marginTop: SPACING.space_36 * 1.3,
   },
   clockIcon: {
     fontSize: FONTSIZE.size_20,

@@ -36,6 +36,9 @@ const TicketScreen = ({navigation, route}: any) => {
     })();
   }, []);
 
+  if (ticketData !== route.params && route.params !== undefined)
+    setTicketData(route.params);
+
   if (ticketData === undefined || ticketData === null) {
     return (
       <View style={styles.container}>
@@ -136,7 +139,7 @@ const TicketScreen = ({navigation, route}: any) => {
 
               <Text style={styles.dateSubtitle}>
                 {ticketData?.seatArray
-                  .slice(1, 4)
+                  .slice(0, 4)
                   .map((item: any, index: number, arr: any) => {
                     return item + (index === arr.length - 1 ? '' : ', ');
                   })}
