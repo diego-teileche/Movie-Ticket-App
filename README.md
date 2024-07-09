@@ -12,6 +12,7 @@ This is a Movie Ticket Booking App built by `Diego Tech` by using:
 - React Native Linear Gradient
 - React Native DotEnv
 - React Native Encrypted Storage
+- React Native Splash Screen
 
 ### One Message for EveryOne 🔥
 
