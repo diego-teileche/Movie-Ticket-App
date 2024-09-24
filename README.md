@@ -1,11 +1,19 @@
-# About the App 📱
+# About the App <img src="./src/assets/images/readme/movie-logo-readme.png" width="40px" height="40px" align="center" alt="SaaS Landing Page Logo | Diego Tech" />
 
 This is a Movie Ticket Booking App built by `Diego Tech` by using:
 
 - React Native
 - TypeScript
 
-## 🚀 I used the Libraries
+<br />
+
+<img src="./src/assets/images/readme/movie1.webp" width="600px" height="293px" alt="Movie Ticket App | Diego Tech | Image 1" />
+<img src="./src/assets/images/readme/movie2.webp" width="600px" height="293px" alt="Movie Ticket App | Diego Tech | Image 2" />
+<img src="./src/assets/images/readme/movie3.webp" width="600px" height="293px" alt="Movie Ticket App | Diego Tech | Image 3" />
+
+<br />
+
+## I used the Libraries 🚀
 
 - React Native Navigation
 - React Native Vector Icons
@@ -17,7 +25,7 @@ This is a Movie Ticket Booking App built by `Diego Tech` by using:
 ### One Message for EveryOne 🔥
 
 > [!TIP]
-> ```bash
+> ```shell
 > Aguante Argentina!!!
 > Aguante Messi!!!
 > ```
